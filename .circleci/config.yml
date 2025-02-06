@@ -1,0 +1,40 @@
+version : 2.1
+
+executors:
+  docker-executor:
+    docker:
+      - image: cimg/node:18.17
+
+jobs:
+  build:
+    executor: docker-executor
+    steps:
+      - checkout
+      - run:
+          name: Build Docker image
+          command: docker build -t cosmospoulet/tp1-container:latest .
+      - run:
+          name: Run container for testing
+          command: docker run -d -p 8080:8080 --name test-container cosmospoulet/tp1-container:latest
+      - run:
+          name: Wait for app to be read
+          command: sleep 5
+      - run:
+          name: Test API endpoint
+          command: |
+            curl -f http://localhot:8080/ || exit 1
+      - run:
+          name: Clean up
+          command: docker stop test-container && docker rm test-container
+      - run:
+            name: Login to DockerHub
+            command: echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+      - run:
+          name: Push to DockerHub
+          command: docker push you cosmospoulet/tp1-container:latest
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
