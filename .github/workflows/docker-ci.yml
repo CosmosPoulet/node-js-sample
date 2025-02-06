@@ -13,16 +13,4 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ vars.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }} 
-          
-      - name: Build Docker Image
-        uses: |
-          docker build -t cosmospoulet/tp1-container:latest .
-
-      - name: Push Docker Image
-        uses: |
-          docker push cosmospoulet/tp1-container:latest
+      
