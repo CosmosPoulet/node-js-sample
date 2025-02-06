@@ -3,7 +3,7 @@ version : 2.1
 executors:
   docker-executor:
     machine:
-      iamge: ubuntu-2204:current
+      image: ubuntu-2204:current
 
 jobs:
   build:
