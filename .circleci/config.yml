@@ -18,8 +18,8 @@ jobs:
           tag: latest
           extra_build_args: "--pull"
       - docker/login:
-            username: DOCKERHUB_PASSWORD
-            password: DOCKERHUB_USERNAME
+            username: DOCKERHUB_USERNAME
+            password: DOCKERHUB_PASSWORD
       - docker/push:
           image: cosmospoulet/tp1-container
           tag: latest
