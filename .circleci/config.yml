@@ -23,7 +23,7 @@ jobs:
       - run:
           name: Test API endpoint
           command: |
-            curl -f http://localhot:8080/ || exit 1
+            curl -f http://localhost:8080/ || exit 1
       - run:
           name: Clean up
           command: docker stop test-container && docker rm test-container
